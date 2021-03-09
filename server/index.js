@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express();
 const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 const cors = require("cors")
 app.use(cors())
@@ -14,7 +15,7 @@ app.get("/api", function(req, res){
 })
 
 app.post("/api", function(req, res) {
-    console.log(res)
+    console.log(req.body)
     res.send("Got data")
 })
 

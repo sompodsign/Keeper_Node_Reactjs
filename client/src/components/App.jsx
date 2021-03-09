@@ -8,7 +8,7 @@ import axios from "./axios"
 
 function App() {
 
-    // const [data, setData] = useState();
+    // const [data, setData] = useState({firstName: 'shedrack', lastName: 'akintayo'});
 
     useEffect(()=>{
         async function getData(){
@@ -18,9 +18,9 @@ function App() {
         getData();
     })
 
-    axios.post('/api', {
-        firstName: 'shedrack',
-        lastName: 'akintayo'
+
+    axios.post('http://localhost:4000/api', {
+        foo: 'bar'
     })
 
   const [notes, setNotes] = useState([]);
