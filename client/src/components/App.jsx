@@ -10,18 +10,18 @@ function App() {
 
     // const [data, setData] = useState({firstName: 'shedrack', lastName: 'akintayo'});
 
-    useEffect(()=>{
-        async function getData(){
-            const res = await axios.get("http://localhost:4000/api/")
-            console.log(res)
-        }
-        getData();
-    })
+    // useEffect(()=>{
+    //     async function getData(){
+    //         const res = await axios.get("http://localhost:4000/api/")
+    //         console.log(res)
+    //     }
+    //     getData();
+    // })
 
 
-    axios.post('http://localhost:4000/api', {
-        foo: 'bar'
-    })
+    // axios.post('http://localhost:4000/api', {
+    //     foo: 'bar'
+    // })
 
   const [notes, setNotes] = useState([]);
 
