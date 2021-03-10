@@ -16,8 +16,14 @@ const articleSchema = new mongoose.Schema({
 
 const Note = mongoose.model("Note", articleSchema);
 
-app.get("/", function(req, res){
-    res.send("Hello")
+app.get("/api/notes", function(req, res){
+    Note.find(function(err, foundNotes){
+        if (!err) {
+            res.send(foundNotes);
+        } else{
+            res.send(err)
+        }
+    })
 })
 
 app.get("/api", function(req, res){
@@ -29,13 +35,7 @@ app.post("/api", function(req, res) {
         title: req.body.title,
         content: req.body.content
     })
-    newNote.save(err=>{
-        if(!err){
-            res.send("Saved");
-        } else {
-            res.send(err)
-        }
-    })
+    newNote.save()
 
     res.send("Success")
 })
