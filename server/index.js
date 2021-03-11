@@ -19,6 +19,7 @@ const Note = mongoose.model("Note", articleSchema);
 app.get("/api/notes", function(req, res){
     Note.find(function(err, foundNotes){
         if (!err) {
+            console.log(foundNotes)
             res.send(foundNotes);
         } else{
             res.send(err)

@@ -15,14 +15,17 @@ function App() {
 
   const [notes, setNotes] = useState([]);
 
-    useEffect(()=>{
-        async function getData(){
-            const res = await axios.get("http://localhost:4000/api/notes")
-            setNotes(res.data)
-        }
-        const notes = getData()
-    })
 
+    useEffect(() => {
+        axios.get("http://localhost:4000/api/notes")
+            .then(res => {
+                console.log(res)
+                setNotes(res.data);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
 
 
   function addNote(newNote) {
