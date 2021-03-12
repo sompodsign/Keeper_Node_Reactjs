@@ -8,18 +8,12 @@ import axios from "./axios"
 
 function App() {
 
-    // const [data, setData] = useState({firstName: 'shedrack', lastName: 'akintayo'});
-
-
-
-
-  const [notes, setNotes] = useState([]);
-
+    const [notes, setNotes] = useState([]);
+    const [removeItem, setRemoveItem] = useState("");
 
     useEffect(() => {
         axios.get("http://localhost:4000/api/notes")
             .then(res => {
-                console.log(res)
                 setNotes(res.data);
             })
             .catch(err => {
@@ -28,38 +22,45 @@ function App() {
     }, [])
 
 
-  function addNote(newNote) {
-    setNotes(prevNotes => {
-      return [...prevNotes, newNote];
-    });
-  }
-
-    function deleteNote(id) {
-      setNotes(prevNotes => {
-        return prevNotes.filter((noteItem, index) => {
-          return index !== id;
+    function addNote(newNote) {
+        setNotes(prevNotes => {
+            return [...prevNotes, newNote];
         });
-      });
     }
+
+    async function deleteNote(title) {
+        setRemoveItem(title)
+        setNotes(() => {
+            return notes.filter(el => {
+                return el.title !== title;
+            })
+        })
+        await axios.delete("http://localhost:4000/api/delete", {data: {item: title}});
+    }
+
+    useEffect(() => {
+        deleteNote(removeItem);
+    }, [removeItem])
+
 
     return (
         <div>
-          <Header/>
-          <CreateArea onAdd={addNote}/>
-          {notes.map((noteItem, index) => {
-            return (
-                <Note
-                    key={index}
-                    id={index}
-                    title={noteItem.title}
-                    content={noteItem.content}
-                    onDelete={deleteNote}
-                />
-            );
-          })}
-          <Footer/>
+            <Header/>
+            <CreateArea onAdd={addNote}/>
+            {notes.map((noteItem, index) => {
+                return (
+                    <Note
+                        key={index}
+                        id={noteItem.title}
+                        title={noteItem.title}
+                        content={noteItem.content}
+                        onDelete={deleteNote}
+                    />
+                );
+            })}
+            <Footer/>
         </div>
     );
-  }
+}
 
 export default App;

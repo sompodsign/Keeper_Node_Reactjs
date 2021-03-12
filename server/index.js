@@ -19,7 +19,6 @@ const Note = mongoose.model("Note", articleSchema);
 app.get("/api/notes", function(req, res){
     Note.find(function(err, foundNotes){
         if (!err) {
-            console.log(foundNotes)
             res.send(foundNotes);
         } else{
             res.send(err)
@@ -27,9 +26,6 @@ app.get("/api/notes", function(req, res){
     })
 })
 
-app.get("/api", function(req, res){
-    res.send({"name": "Shampad", "age": 26})
-})
 
 app.post("/api", function(req, res) {
     const newNote = new Note({
@@ -40,6 +36,28 @@ app.post("/api", function(req, res) {
 
     res.send("Success")
 })
+
+app.delete("/api/delete", function(req, res) {
+    console.log(req.body.item)
+    Note.deleteOne({title: req.body.item},function(err){
+        if(!err){
+            res.send("Deleted");
+        } else {
+            res.send(err)
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(4000, ()=>{
     console.log("server started at 4000")
