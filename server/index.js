@@ -7,13 +7,14 @@ const cors = require("cors")
 app.use(cors())
 const mongoose = require("mongoose");
 
+// connect to db.
 mongoose.connect('mongodb://localhost:27017/noteDB', {useNewUrlParser: true, useUnifiedTopology: true});
-
+// initiate schema for collection.
 const articleSchema = new mongoose.Schema({
     title: String,
     content: String
 });
-
+// add model.
 const Note = mongoose.model("Note", articleSchema);
 
 app.get("/api/notes", function(req, res){
